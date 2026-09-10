@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
 import { CloseIcon, MenuIcon } from '@/components/ui/Icons'
+import { InstallAppButton } from '@/components/pwa/InstallAppButton'
 import type { NavLink } from '@/lib/navigation'
 
 export function Header({
@@ -42,6 +43,7 @@ export function Header({
           ))}
         </nav>
         <div className="flex items-center gap-2">
+          <InstallAppButton />
           <Button href={ctaHref} className="hidden sm:inline-flex">
             {ctaLabel}
           </Button>
@@ -68,6 +70,9 @@ export function Header({
               {l.label}
             </Link>
           ))}
+          <div onClick={() => setOpen(false)}>
+            <InstallAppButton variant="menu" />
+          </div>
           <Link href="/search" className="block min-h-11 border-b border-line/70 py-3" onClick={() => setOpen(false)}>
             Search
           </Link>

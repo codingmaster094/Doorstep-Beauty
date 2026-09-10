@@ -4,10 +4,11 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { MobileDock } from '@/components/layout/MobileDock'
 import { SalonAtmosphere } from '@/components/layout/SalonAtmosphere'
+import { PwaRegister } from '@/components/pwa/PwaRegister'
 import { getPayloadClient } from '@/lib/payload'
 import { mediaUrl, rel } from '@/lib/utils'
 import { defaultExploreLinks, defaultHeaderLinks, defaultPolicyLinks, navFromCms } from '@/lib/navigation'
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 
 const display = Cormorant_Garamond({
   subsets: ['latin'],
@@ -16,6 +17,11 @@ const display = Cormorant_Garamond({
   variable: '--font-display',
 })
 const sans = Outfit({ subsets: ['latin'], variable: '--font-sans' })
+
+export const viewport: Viewport = {
+  themeColor: '#7a3045',
+  viewportFit: 'cover',
+}
 
 export const dynamic = 'force-dynamic'
 
@@ -32,6 +38,12 @@ export async function generateMetadata(): Promise<Metadata> {
     title: { default: title, template: `%s | ${settings.businessName}` },
     description,
     icons: icon ? { icon } : undefined,
+    manifest: '/manifest.webmanifest',
+    appleWebApp: {
+      capable: true,
+      title: settings.businessName || 'Bloom At Home',
+      statusBarStyle: 'default',
+    },
     robots: { index: true, follow: true },
   }
 }
@@ -54,6 +66,7 @@ export default async function FrontendLayout({ children }: { children: React.Rea
   return (
     <html lang="en">
       <body className={`${display.variable} ${sans.variable} bg-cream font-sans text-ink antialiased`}>
+        <PwaRegister />
         <SalonAtmosphere />
         <div className="site-shell">
         <Header

@@ -29,3 +29,12 @@ export function CloseIcon({ className }: { className?: string }) {
     </svg>
   )
 }
+
+export function InstallIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
+      <rect x="6" y="2.5" width="12" height="19" rx="2.2" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M12 7.5v7.2M9.2 12.3 12 15.2l2.8-2.9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
