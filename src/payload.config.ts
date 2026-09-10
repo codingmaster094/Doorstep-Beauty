@@ -31,7 +31,7 @@ import { isValidVercelBlobToken, publicServerURL, vercelBlobToken } from './lib/
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 const blobToken = vercelBlobToken()
-const blobEnabled = isValidVercelBlobToken(blobToken)
+const blobEnabled = isValidVercelBlobToken(blobToken) && process.env.VERCEL === '1'
 
 export default buildConfig({
   serverURL: publicServerURL(),
