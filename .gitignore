@@ -1,0 +1,17 @@
+node_modules
+.next
+.payload
+out
+dist
+build
+*.tsbuildinfo
+.env
+.env.local
+.env.*.local
+media
+public/media
+*.log
+coverage
+.DS_Store
+importMap.js
+src/app/(payload)/admin/importMap.js
