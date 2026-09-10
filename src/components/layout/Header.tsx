@@ -24,7 +24,7 @@ export function Header({
       <div className="mx-auto flex min-h-16 max-w-6xl items-center justify-between gap-3 px-4">
         <Link href="/" className="flex min-h-11 items-center gap-2 text-rose">
           {logoUrl ? (
-            <img src={logoUrl} alt={businessName} className="h-10 w-auto max-w-36 object-contain" />
+            <img src={logoUrl} alt={businessName} className="h-24 w-auto max-w-36 object-contain" />
           ) : (
             <span className="font-display text-2xl tracking-wide">{businessName}</span>
           )}
