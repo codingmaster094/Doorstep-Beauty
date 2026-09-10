@@ -169,6 +169,9 @@ export interface User {
   role: 'super-admin' | 'manager' | 'content-manager' | 'beautician' | 'customer';
   phone?: string | null;
   whatsapp?: string | null;
+  /**
+   * Upload a new file into Media, or choose one already saved there.
+   */
   photo?: (string | null) | Media;
   accountStatus?: ('active' | 'suspended' | 'pending') | null;
   favouriteServices?: (string | Service)[] | null;
@@ -183,7 +186,7 @@ export interface User {
   collection: 'users';
 }
 /**
- * Upload photos and videos here, then attach them on Services, Homepage, Beauticians, Reels, or Before & After.
+ * All website photos, videos and icons are stored here. Upload once, then select the file on Homepage, Services, Beauticians, Reels, Offers and other pages.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
@@ -191,9 +194,16 @@ export interface User {
 export interface Media {
   id: string;
   /**
-   * Short text for the photo. If empty, the file name is used.
+   * Short text that describes this file on the website.
    */
-  alt?: string | null;
+  alt: string;
+  /**
+   * Optional folder so files are easier to find.
+   */
+  folder?:
+    | ('general' | 'brand' | 'homepage' | 'services' | 'beauticians' | 'reels' | 'before-after' | 'offers' | 'reviews')
+    | null;
+  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -203,42 +213,6 @@ export interface Media {
   filesize?: number | null;
   width?: number | null;
   height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-  sizes?: {
-    thumb?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    card?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    hero?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    og?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -255,11 +229,11 @@ export interface Service {
   shortDescription: string;
   fullDescription?: string | null;
   /**
-   * Main photo on the website.
+   * Main photo on the website. Stored in Media.
    */
   featuredImage?: (string | null) | Media;
   /**
-   * Extra photos on the service page.
+   * Extra photos. Stored in Media.
    */
   gallery?: (string | Media)[] | null;
   basePrice: number;
@@ -307,6 +281,9 @@ export interface ServiceCategory {
   name: string;
   slug: string;
   shortDescription?: string | null;
+  /**
+   * Upload a new file into Media, or choose one already saved there.
+   */
   image?: (string | null) | Media;
   active?: boolean | null;
   featured?: boolean | null;
@@ -388,7 +365,7 @@ export interface Beautician {
   slug: string;
   user?: (string | null) | User;
   /**
-   * Photo on the website.
+   * Photo on the website. Stored in Media.
    */
   profileImage?: (string | null) | Media;
   bio?: string | null;
@@ -403,7 +380,7 @@ export interface Beautician {
   rating?: number | null;
   totalReviews?: number | null;
   /**
-   * Work photos on the profile page.
+   * Work photos on the profile page. Stored in Media.
    */
   portfolio?: (string | Media)[] | null;
   phone?: string | null;
@@ -516,6 +493,9 @@ export interface Offer {
   title: string;
   slug: string;
   description?: string | null;
+  /**
+   * Upload a new file into Media, or choose one already saved there.
+   */
   banner?: (string | null) | Media;
   discountLabel?: string | null;
   coupon?: (string | null) | Coupon;
@@ -536,6 +516,9 @@ export interface Review {
   id: string;
   customer?: (string | null) | User;
   customerName: string;
+  /**
+   * Upload a new file into Media, or choose one already saved there.
+   */
   customerPhoto?: (string | null) | Media;
   service?: (string | null) | Service;
   beautician?: (string | null) | Beautician;
@@ -558,7 +541,13 @@ export interface BeforeAfter {
   title: string;
   service?: (string | null) | Service;
   beautician?: (string | null) | Beautician;
+  /**
+   * Upload a new file into Media, or choose one already saved there.
+   */
   beforeImage: string | Media;
+  /**
+   * Upload a new file into Media, or choose one already saved there.
+   */
   afterImage: string | Media;
   description?: string | null;
   published?: boolean | null;
@@ -576,11 +565,11 @@ export interface Reel {
   title: string;
   caption?: string | null;
   /**
-   * Cover photo for the reel.
+   * Cover photo for the reel. Stored in Media.
    */
   thumbnail?: (string | null) | Media;
   /**
-   * Upload an MP4 or WebM video.
+   * MP4 or WebM video. Stored in Media.
    */
   video?: (string | null) | Media;
   externalUrl?: string | null;
@@ -616,6 +605,10 @@ export interface Page {
   title: string;
   slug: string;
   excerpt?: string | null;
+  /**
+   * Upload a new file into Media, or choose one already saved there.
+   */
+  coverImage?: (string | null) | Media;
   content: string;
   seo?: {
     title?: string | null;
@@ -818,6 +811,8 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  folder?: T;
+  prefix?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -827,52 +822,6 @@ export interface MediaSelect<T extends boolean = true> {
   filesize?: T;
   width?: T;
   height?: T;
-  focalX?: T;
-  focalY?: T;
-  sizes?:
-    | T
-    | {
-        thumb?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        card?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        hero?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        og?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1206,6 +1155,7 @@ export interface PagesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   excerpt?: T;
+  coverImage?: T;
   content?: T;
   seo?:
     | T
@@ -1279,8 +1229,48 @@ export interface SiteSetting {
   id: string;
   businessName: string;
   tagline?: string | null;
+  /**
+   * Upload a new file into Media, or choose one already saved there.
+   */
   logo?: (string | null) | Media;
+  /**
+   * Upload a new file into Media, or choose one already saved there.
+   */
   favicon?: (string | null) | Media;
+  headerLinks?:
+    | {
+        label: string;
+        /**
+         * Page path, e.g. /services
+         */
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  headerCtaLabel?: string | null;
+  headerCtaHref?: string | null;
+  footerTagline?: string | null;
+  footerExploreLinks?:
+    | {
+        label: string;
+        /**
+         * Page path, e.g. /services
+         */
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  footerPolicyLinks?:
+    | {
+        label: string;
+        /**
+         * Page path, e.g. /services
+         */
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  copyrightText?: string | null;
   phone: string;
   whatsapp: string;
   email: string;
@@ -1293,6 +1283,7 @@ export interface SiteSetting {
   minAdvanceDays?: number | null;
   maxAdvanceDays?: number | null;
   cancellationHours?: number | null;
+  mobileBookLabel?: string | null;
   seo?: {
     defaultTitle?: string | null;
     defaultDescription?: string | null;
@@ -1309,7 +1300,7 @@ export interface Homepage {
   heroHeadline?: string | null;
   heroText?: string | null;
   /**
-   * Large photo on the home page.
+   * Large photo on the home page. Stored in Media.
    */
   heroImage?: (string | null) | Media;
   finalCtaHeadline?: string | null;
@@ -1326,6 +1317,31 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   tagline?: T;
   logo?: T;
   favicon?: T;
+  headerLinks?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  headerCtaLabel?: T;
+  headerCtaHref?: T;
+  footerTagline?: T;
+  footerExploreLinks?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  footerPolicyLinks?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  copyrightText?: T;
   phone?: T;
   whatsapp?: T;
   email?: T;
@@ -1338,6 +1354,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   minAdvanceDays?: T;
   maxAdvanceDays?: T;
   cancellationHours?: T;
+  mobileBookLabel?: T;
   seo?:
     | T
     | {

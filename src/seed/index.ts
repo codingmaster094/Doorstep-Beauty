@@ -73,6 +73,32 @@ async function seed() {
       address: 'Surat, Gujarat, India',
       businessHours: '9:00 AM – 7:00 PM',
       defaultHomeVisitCharge: 150,
+      headerCtaLabel: 'Book home service',
+      headerCtaHref: '/book',
+      footerTagline: 'Professional beauty services at home in Surat.',
+      copyrightText: 'All rights reserved.',
+      mobileBookLabel: 'Book now',
+      headerLinks: [
+        { label: 'Services', href: '/services' },
+        { label: 'Beauticians', href: '/beauticians' },
+        { label: 'Offers', href: '/offers' },
+        { label: 'Results', href: '/before-after' },
+        { label: 'Reels', href: '/reels' },
+        { label: 'About', href: '/about' },
+        { label: 'Contact', href: '/contact' },
+      ],
+      footerExploreLinks: [
+        { label: 'Services', href: '/services' },
+        { label: 'Beauticians', href: '/beauticians' },
+        { label: 'Offers', href: '/offers' },
+        { label: 'FAQ', href: '/faq' },
+      ],
+      footerPolicyLinks: [
+        { label: 'Privacy', href: '/privacy' },
+        { label: 'Terms', href: '/terms' },
+        { label: 'Cancellation', href: '/cancellation' },
+        { label: 'Refund', href: '/refund' },
+      ],
       seo: {
         defaultTitle: 'Bloom At Home | Beauty service at home in Surat',
         defaultDescription:

@@ -1,7 +1,17 @@
 import { whatsappLink, telLink, DEFAULT_WHATSAPP_MESSAGE } from '@/lib/whatsapp'
 import { Button } from '@/components/ui/Button'
 
-export function MobileDock({ phone, whatsapp }: { phone: string; whatsapp: string }) {
+export function MobileDock({
+  phone,
+  whatsapp,
+  bookLabel,
+  bookHref,
+}: {
+  phone: string
+  whatsapp: string
+  bookLabel: string
+  bookHref: string
+}) {
   return (
     <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
       <div className="grid grid-cols-3">
@@ -11,8 +21,8 @@ export function MobileDock({ phone, whatsapp }: { phone: string; whatsapp: strin
         <a className="flex min-h-12 items-center justify-center text-sm" href={telLink(phone)}>
           Call
         </a>
-        <Button href="/book" className="w-full rounded-none">
-          Book now
+        <Button href={bookHref} className="w-full rounded-none">
+          {bookLabel}
         </Button>
       </div>
     </div>
