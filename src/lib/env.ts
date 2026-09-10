@@ -3,7 +3,7 @@ function cleanEnv(value?: string) {
 }
 
 export function vercelBlobToken() {
-  return cleanEnv(process.env.BLOB_READ_WRITE_TOKEN)
+  return cleanEnv(process.env.BLOB_WEBHOOK_PUBLIC_KEY)
 }
 
 export function isValidVercelBlobToken(token: string) {
