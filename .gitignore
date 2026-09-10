@@ -13,5 +13,3 @@ public/media
 *.log
 coverage
 .DS_Store
-importMap.js
-src/app/(payload)/admin/importMap.js
