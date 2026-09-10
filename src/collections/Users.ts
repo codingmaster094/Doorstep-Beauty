@@ -15,7 +15,7 @@ export const Users: CollectionConfig = {
     useSessions: false,
     cookies: {
       sameSite: 'Lax',
-      secure: false,
+      secure: process.env.NODE_ENV === 'production',
     },
   },
   admin: {

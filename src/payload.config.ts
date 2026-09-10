@@ -26,12 +26,15 @@ import { Notifications } from './collections/Notifications'
 import { SiteSettings } from './globals/SiteSettings'
 import { Homepage } from './globals/Homepage'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+import { isValidVercelBlobToken, publicServerURL, vercelBlobToken } from './lib/env'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+const blobToken = vercelBlobToken()
+const blobEnabled = isValidVercelBlobToken(blobToken)
 
 export default buildConfig({
-  serverURL: '',
+  serverURL: publicServerURL(),
   cors: '*',
   csrf: [],
   admin: {
@@ -82,14 +85,16 @@ export default buildConfig({
   sharp,
   plugins: [
     vercelBlobStorage({
-      enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
+      enabled: blobEnabled,
       alwaysInsertFields: true,
       collections: {
         media: true,
       },
-      token: process.env.BLOB_READ_WRITE_TOKEN || '',
+      token: blobToken,
       addRandomSuffix: true,
-      clientUploads: true,
+      clientUploads: {
+        access: ({ req }) => Boolean(req.user),
+      },
     }),
   ],
 })

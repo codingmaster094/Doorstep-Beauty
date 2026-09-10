@@ -25,21 +25,15 @@ async function refreshPublicPages() {
   try {
     const { revalidatePath } = await import('next/cache')
     revalidatePath('/', 'layout')
-    revalidatePath('/services')
-    revalidatePath('/beauticians')
-    revalidatePath('/offers')
-    revalidatePath('/reels')
-    revalidatePath('/before-after')
-    revalidatePath('/faq')
   } catch {
-    // Seed and other CLI scripts are not inside a Next request.
+    // Payload API routes and seed scripts are not always a Next render.
   }
 }
 
-export const revalidateAfterChange: CollectionAfterChangeHook = async () => {
-  await refreshPublicPages()
+export const revalidateAfterChange: CollectionAfterChangeHook = () => {
+  void refreshPublicPages()
 }
 
-export const revalidateGlobalAfterChange: GlobalAfterChangeHook = async () => {
-  await refreshPublicPages()
+export const revalidateGlobalAfterChange: GlobalAfterChangeHook = () => {
+  void refreshPublicPages()
 }
