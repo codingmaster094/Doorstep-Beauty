@@ -13,7 +13,7 @@ export function BeforeAfterSlider({
 }) {
   const [pos, setPos] = useState(50)
   return (
-    <figure className="overflow-hidden border border-line bg-white">
+    <figure className="overflow-hidden rounded-2xl border border-gold/20 bg-white shadow-[0_12px_28px_rgba(90,36,50,0.06)]">
       <div className="relative aspect-[4/5] overflow-hidden">
         <img src={afterSrc} alt={`${title} after`} className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 overflow-hidden" style={{ width: `${pos}%` }}>

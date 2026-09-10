@@ -53,7 +53,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         <Link href="/services">Services</Link> / <Link href={`/services/${cat?.slug}`}>{cat?.name}</Link>
       </p>
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="aspect-[4/5] overflow-hidden bg-blush">
+        <div className="salon-frame aspect-[4/5] overflow-hidden rounded-[1.4rem] bg-blush">
           {mediaUrl(rel(s.featuredImage)) ? (
             <img
               src={mediaUrl(rel(s.featuredImage))}

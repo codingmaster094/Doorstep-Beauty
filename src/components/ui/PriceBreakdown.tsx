@@ -21,7 +21,7 @@ export function PriceBreakdown({
   )
 
   return (
-    <div className="border border-line bg-white p-4">
+    <div className="rounded-2xl border border-gold/20 bg-white p-4">
       <p className="text-xs uppercase tracking-[0.16em] text-ink-soft">Price breakdown</p>
       <Row label="Service charge" value={formatInr(serviceAmount)} />
       <Row label="Home visit charge" value={formatInr(homeVisitCharge)} />

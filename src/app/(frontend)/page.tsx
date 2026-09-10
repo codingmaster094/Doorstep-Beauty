@@ -11,6 +11,8 @@ import { pageMeta, jsonLd, absUrl } from '@/lib/seo'
 import { serviceSellPrice } from '@/lib/pricing/money'
 import { mediaUrl, rel } from '@/lib/utils'
 import { whatsappLink, DEFAULT_WHATSAPP_MESSAGE } from '@/lib/whatsapp'
+import { SectionHeading } from '@/components/ui/SectionHeading'
+import { Reveal } from '@/components/ui/Reveal'
 import Link from 'next/link'
 
 export async function generateMetadata() {
@@ -159,16 +161,16 @@ export default async function HomePage() {
   const finalLabel = home.finalCtaLabel
 
   return (
-    <div className="space-y-16">
+    <div className="space-y-20">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: localBusiness }} />
       {home.heroHeadline || home.heroText || heroSrc ? (
-        <section className="grid gap-8 lg:grid-cols-2 lg:items-center">
-          <div>
+        <section className="grid items-center gap-8 overflow-hidden rounded-[1.75rem] border border-gold/25 bg-white/80 p-5 shadow-[0_18px_40px_rgba(90,36,50,0.06)] sm:p-8 lg:grid-cols-2">
+          <div className="hero-enter">
             {home.heroBadge ? <Badge>{home.heroBadge}</Badge> : null}
             {home.heroHeadline ? (
-              <h1 className="mt-4 font-display text-5xl leading-[0.95] text-ink sm:text-6xl">{home.heroHeadline}</h1>
+              <h1 className="mt-4 font-display text-[2.6rem] leading-[0.95] text-ink sm:text-6xl">{home.heroHeadline}</h1>
             ) : null}
-            {home.heroText ? <p className="mt-5 max-w-xl text-base leading-7 text-ink-soft">{home.heroText}</p> : null}
+            {home.heroText ? <p className="mt-5 max-w-xl text-base leading-8 text-ink-soft">{home.heroText}</p> : null}
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               {primaryLabel ? <Button href={primaryHref}>{primaryLabel}</Button> : null}
               {secondaryLabel ? (
@@ -184,168 +186,176 @@ export default async function HomePage() {
             </div>
           </div>
           {heroSrc ? (
-            <div className="aspect-[4/5] overflow-hidden bg-blush sm:aspect-[5/4]">
-              <img src={heroSrc} alt="" className="h-full w-full object-cover" />
+            <div className="salon-frame overflow-hidden rounded-[1.4rem] bg-blush">
+              <div className="aspect-[4/5] sm:aspect-[5/4]">
+                <img src={heroSrc} alt="" className="ken-burns h-full w-full object-cover" />
+              </div>
             </div>
           ) : null}
         </section>
       ) : null}
 
       {featuredServices.length ? (
-        <section>
-          {home.servicesTitle ? <h2 className="font-display text-4xl">{home.servicesTitle}</h2> : null}
-          <ServiceSwiper services={featuredServices} />
-        </section>
+        <Reveal>
+          <section>
+            <ServiceSwiper title={home.servicesTitle} services={featuredServices} />
+          </section>
+        </Reveal>
       ) : null}
 
       {howItWorks.length ? (
-        <section>
-          {home.howItWorksTitle ? <h2 className="font-display text-4xl">{home.howItWorksTitle}</h2> : null}
-          <ol className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-            {howItWorks.map((step, i) => (
-              <li key={`${step.title}-${i}`} className="border border-line bg-white p-4">
-                <span className="text-xs uppercase tracking-[0.16em] text-gold">Step {i + 1}</span>
-                <p className="mt-2 font-medium">{step.title}</p>
-              </li>
-            ))}
-          </ol>
-        </section>
+        <Reveal>
+          <section>
+            <SectionHeading title={home.howItWorksTitle} />
+            <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+              {howItWorks.map((step, i) => (
+                <li key={`${step.title}-${i}`} className="salon-card rounded-2xl border border-gold/20 bg-white p-4">
+                  <span className="font-display text-3xl text-gold">{String(i + 1).padStart(2, '0')}</span>
+                  <p className="mt-2 font-medium">{step.title}</p>
+                </li>
+              ))}
+            </ol>
+          </section>
+        </Reveal>
       ) : null}
 
       {whyItems.length ? (
-        <section>
-          {home.whyTitle ? <h2 className="font-display text-4xl">{home.whyTitle}</h2> : null}
-          <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {whyItems.map((item, i) => (
-              <div key={`${item.title}-${i}`} className="border border-line bg-white p-4">
-                <h3 className="font-medium">{item.title}</h3>
-                {item.body ? <p className="mt-2 text-sm text-ink-soft">{item.body}</p> : null}
-              </div>
-            ))}
-          </div>
-        </section>
+        <Reveal>
+          <section>
+            <SectionHeading title={home.whyTitle} />
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {whyItems.map((item, i) => (
+                <div key={`${item.title}-${i}`} className="salon-card rounded-2xl border border-gold/20 bg-white p-5">
+                  <h3 className="font-display text-2xl">{item.title}</h3>
+                  {item.body ? <p className="mt-2 text-sm leading-7 text-ink-soft">{item.body}</p> : null}
+                </div>
+              ))}
+            </div>
+          </section>
+        </Reveal>
       ) : null}
 
       {featuredBeforeAfter.length ? (
-        <section>
-          <div className="flex items-end justify-between">
-            {home.beforeAfterTitle ? <h2 className="font-display text-4xl">{home.beforeAfterTitle}</h2> : null}
-            <Link href="/before-after" className="text-sm text-rose">
-              View all
-            </Link>
-          </div>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2">
-            {featuredBeforeAfter.map((item) => (
-              <BeforeAfterSlider
-                key={item.id}
-                title={item.title}
-                beforeSrc={item.beforeSrc}
-                afterSrc={item.afterSrc}
-              />
-            ))}
-          </div>
-        </section>
+        <Reveal>
+          <section>
+            <SectionHeading title={home.beforeAfterTitle} href="/before-after" />
+            <div className="grid gap-4 sm:grid-cols-2">
+              {featuredBeforeAfter.map((item) => (
+                <BeforeAfterSlider
+                  key={item.id}
+                  title={item.title}
+                  beforeSrc={item.beforeSrc}
+                  afterSrc={item.afterSrc}
+                />
+              ))}
+            </div>
+          </section>
+        </Reveal>
       ) : null}
 
       {featuredBeauticians.length ? (
-        <section>
-          <div className="flex items-end justify-between">
-            {home.beauticiansTitle ? <h2 className="font-display text-4xl">{home.beauticiansTitle}</h2> : null}
-            <Link href="/beauticians" className="text-sm text-rose">
-              View all
-            </Link>
-          </div>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2">
-            {featuredBeauticians.map((b) => (
-              <BeauticianCard
-                key={b.id}
-                name={b.name}
-                slug={b.slug}
-                experienceYears={b.experienceYears}
-                rating={b.rating}
-                specialization={b.specialization}
-                area={b.area}
-                image={b.image}
-              />
-            ))}
-          </div>
-        </section>
+        <Reveal>
+          <section>
+            <SectionHeading title={home.beauticiansTitle} href="/beauticians" />
+            <div className="grid gap-4 sm:grid-cols-2">
+              {featuredBeauticians.map((b) => (
+                <BeauticianCard
+                  key={b.id}
+                  name={b.name}
+                  slug={b.slug}
+                  experienceYears={b.experienceYears}
+                  rating={b.rating}
+                  specialization={b.specialization}
+                  area={b.area}
+                  image={b.image}
+                />
+              ))}
+            </div>
+          </section>
+        </Reveal>
       ) : null}
 
       {featuredReels.length ? (
-        <section>
-          <div className="flex items-end justify-between">
-            {home.reelsTitle ? <h2 className="font-display text-4xl">{home.reelsTitle}</h2> : null}
-            <Link href="/reels" className="text-sm text-rose">
-              View all
-            </Link>
-          </div>
-          <div className="mt-5 flex snap-x gap-3 overflow-x-auto pb-2">
-            {featuredReels.map((r) => (
-              <ReelCard
-                key={r.id}
-                title={r.title}
-                caption={r.caption}
-                thumbnail={r.thumbnail}
-                videoUrl={r.videoUrl}
-                externalUrl={r.externalUrl}
-              />
-            ))}
-          </div>
-        </section>
+        <Reveal>
+          <section>
+            <SectionHeading title={home.reelsTitle} href="/reels" />
+            <div className="flex snap-x gap-3 overflow-x-auto pb-2">
+              {featuredReels.map((r) => (
+                <ReelCard
+                  key={r.id}
+                  title={r.title}
+                  caption={r.caption}
+                  thumbnail={r.thumbnail}
+                  videoUrl={r.videoUrl}
+                  externalUrl={r.externalUrl}
+                />
+              ))}
+            </div>
+          </section>
+        </Reveal>
       ) : null}
 
       {featuredReviews.length ? (
-        <section>
-          {home.reviewsTitle ? <h2 className="font-display text-4xl">{home.reviewsTitle}</h2> : null}
-          <div className="mt-5 grid gap-4 md:grid-cols-2">
-            {featuredReviews.map((r) => (
-              <ReviewCard
-                key={r.id}
-                name={r.name}
-                rating={r.rating}
-                review={r.review}
-                verified={r.verified}
-                service={r.service}
-              />
-            ))}
-          </div>
-        </section>
+        <Reveal>
+          <section>
+            <SectionHeading title={home.reviewsTitle} />
+            <div className="grid gap-4 md:grid-cols-2">
+              {featuredReviews.map((r) => (
+                <ReviewCard
+                  key={r.id}
+                  name={r.name}
+                  rating={r.rating}
+                  review={r.review}
+                  verified={r.verified}
+                  service={r.service}
+                />
+              ))}
+            </div>
+          </section>
+        </Reveal>
       ) : null}
 
       {activeOffers.length ? (
-        <section>
-          {home.offersTitle ? <h2 className="font-display text-4xl">{home.offersTitle}</h2> : null}
-          <div className="mt-5 grid gap-4">
-            {activeOffers.map((o) => (
-              <Link key={o.id} href="/offers" className="block border border-line bg-white p-4">
-                <h3 className="font-display text-3xl">{o.title}</h3>
-                <p className="mt-2 text-sm text-ink-soft">{o.description}</p>
-              </Link>
-            ))}
-          </div>
-        </section>
+        <Reveal>
+          <section>
+            <SectionHeading title={home.offersTitle} />
+            <div className="grid gap-4">
+              {activeOffers.map((o) => (
+                <Link
+                  key={o.id}
+                  href="/offers"
+                  className="salon-card block rounded-2xl border border-gold/20 bg-white p-5 shadow-[0_12px_28px_rgba(90,36,50,0.06)]"
+                >
+                  <h3 className="font-display text-3xl">{o.title}</h3>
+                  <p className="mt-2 text-sm text-ink-soft">{o.description}</p>
+                </Link>
+              ))}
+            </div>
+          </section>
+        </Reveal>
       ) : null}
 
       {faqs.docs.length ? (
-        <section>
-          {home.faqTitle ? <h2 className="font-display text-4xl">{home.faqTitle}</h2> : null}
-          <div className="mt-5">
+        <Reveal>
+          <section>
+            <SectionHeading title={home.faqTitle} />
             <Accordion items={faqs.docs.map((f) => ({ question: f.question, answer: f.answer }))} />
-          </div>
-        </section>
+          </section>
+        </Reveal>
       ) : null}
 
       {home.finalCtaHeadline || home.finalCtaText || finalLabel ? (
-        <section className="border border-line bg-white px-5 py-10 text-center">
-          {home.finalCtaHeadline ? <h2 className="font-display text-5xl">{home.finalCtaHeadline}</h2> : null}
-          {home.finalCtaText ? <p className="mt-3 text-ink-soft">{home.finalCtaText}</p> : null}
-          {finalLabel ? (
-            <Button href={finalHref} className="mt-6">
-              {finalLabel}
-            </Button>
-          ) : null}
-        </section>
+        <Reveal>
+          <section className="cta-glow rounded-[1.75rem] border border-gold/30 bg-rose px-5 py-12 text-center text-white">
+            {home.finalCtaHeadline ? <h2 className="font-display text-5xl">{home.finalCtaHeadline}</h2> : null}
+            {home.finalCtaText ? <p className="mt-3 text-white/80">{home.finalCtaText}</p> : null}
+            {finalLabel ? (
+              <Button href={finalHref} variant="gold" className="mt-6">
+                {finalLabel}
+              </Button>
+            ) : null}
+          </section>
+        </Reveal>
       ) : null}
     </div>
   )

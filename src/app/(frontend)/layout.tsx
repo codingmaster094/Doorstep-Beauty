@@ -3,12 +3,18 @@ import './globals.css'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { MobileDock } from '@/components/layout/MobileDock'
+import { SalonAtmosphere } from '@/components/layout/SalonAtmosphere'
 import { getPayloadClient } from '@/lib/payload'
 import { mediaUrl, rel } from '@/lib/utils'
 import { defaultExploreLinks, defaultHeaderLinks, defaultPolicyLinks, navFromCms } from '@/lib/navigation'
 import type { Metadata } from 'next'
 
-const display = Cormorant_Garamond({ subsets: ['latin'], weight: ['500', '600'], variable: '--font-display' })
+const display = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['500', '600', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-display',
+})
 const sans = Outfit({ subsets: ['latin'], variable: '--font-sans' })
 
 export const dynamic = 'force-dynamic'
@@ -48,6 +54,8 @@ export default async function FrontendLayout({ children }: { children: React.Rea
   return (
     <html lang="en">
       <body className={`${display.variable} ${sans.variable} bg-cream font-sans text-ink antialiased`}>
+        <SalonAtmosphere />
+        <div className="site-shell">
         <Header
           businessName={name}
           logoUrl={logoUrl}
@@ -55,7 +63,7 @@ export default async function FrontendLayout({ children }: { children: React.Rea
           ctaLabel={settings?.headerCtaLabel || 'Book home service'}
           ctaHref={settings?.headerCtaHref || '/book'}
         />
-        <main className="mx-auto min-h-[70vh] max-w-6xl px-4 pb-8 pt-6">{children}</main>
+        <main className="mx-auto min-h-[70vh] max-w-6xl px-4 pb-10 pt-6 md:pt-8">{children}</main>
         <Footer
           businessName={name}
           logoUrl={logoUrl}
@@ -77,6 +85,7 @@ export default async function FrontendLayout({ children }: { children: React.Rea
           bookLabel={settings?.mobileBookLabel || 'Book now'}
           bookHref={settings?.headerCtaHref || '/book'}
         />
+        </div>
       </body>
     </html>
   )

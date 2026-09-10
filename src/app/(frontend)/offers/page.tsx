@@ -33,7 +33,7 @@ export default async function OffersPage() {
           {list.map((o) => {
             const coupon = rel(o.coupon)
             return (
-              <article key={o.id} className="border border-line bg-white p-4">
+              <article key={o.id} className="overflow-hidden rounded-2xl border border-gold/20 bg-white p-4 shadow-[0_12px_28px_rgba(90,36,50,0.06)]">
                 {mediaUrl(rel(o.banner)) ? (
                   <img src={mediaUrl(rel(o.banner))} alt={o.title} className="mb-3 aspect-[16/7] w-full object-cover" />
                 ) : null}

@@ -17,7 +17,7 @@ export function ReelCard({
 }) {
   const [play, setPlay] = useState(false)
   return (
-    <article className="min-w-[220px] max-w-[240px] snap-start border border-line bg-white">
+    <article className="salon-card min-w-[220px] max-w-[240px] snap-start overflow-hidden rounded-2xl border border-gold/20 bg-white shadow-[0_12px_28px_rgba(90,36,50,0.06)]">
       <div className="relative aspect-[9/16] bg-blush">
         {play && videoUrl ? (
           <video src={videoUrl} controls className="h-full w-full object-cover" />

@@ -25,7 +25,7 @@ export function Modal({
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-ink/40 p-0 sm:items-center sm:p-6" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
       <button className="absolute inset-0" aria-label="Close" onClick={onClose} />
-      <div className="relative z-10 w-full max-w-lg border border-line bg-white p-5">
+      <div className="relative z-10 w-full max-w-lg rounded-t-3xl border border-gold/20 bg-white p-5 sm:rounded-3xl">
         <h2 id="dialog-title" className="font-display text-3xl">
           {title}
         </h2>

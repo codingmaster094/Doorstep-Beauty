@@ -1,6 +1,6 @@
 export function EmptyState({ title, body, action }: { title: string; body?: string; action?: React.ReactNode }) {
   return (
-    <div className="border border-dashed border-line bg-white px-4 py-10 text-center">
+    <div className="rounded-2xl border border-dashed border-gold/40 bg-white px-4 py-10 text-center">
       <h2 className="font-display text-2xl text-ink">{title}</h2>
       {body ? <p className="mt-2 text-ink-soft">{body}</p> : null}
       {action ? <div className="mt-5">{action}</div> : null}

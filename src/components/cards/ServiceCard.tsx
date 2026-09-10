@@ -22,10 +22,20 @@ export function ServiceCard({
 }) {
   const href = `/services/${categorySlug}/${slug}`
   return (
-    <article className={cn('flex min-w-[220px] snap-start flex-col border border-line bg-white', className)}>
-      <Link href={href} className="block aspect-[4/5] overflow-hidden bg-blush">
+    <article
+      className={cn(
+        'flex min-w-0 flex-col overflow-hidden rounded-2xl border border-gold/20 bg-white shadow-[0_12px_28px_rgba(90,36,50,0.06)] salon-card',
+        className,
+      )}
+    >
+      <Link href={href} className="shine block aspect-[4/5] overflow-hidden bg-blush">
         {mediaUrl(image) ? (
-          <img src={mediaUrl(image)} alt={name} className="h-full w-full object-cover" loading="lazy" />
+          <img
+            src={mediaUrl(image)}
+            alt={name}
+            className="h-full w-full object-cover transition duration-700 hover:scale-[1.08]"
+            loading="lazy"
+          />
         ) : (
           <div className="flex h-full items-end p-4 font-display text-3xl text-rose">{name}</div>
         )}

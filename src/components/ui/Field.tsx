@@ -4,7 +4,7 @@ export function Input({ className, ...props }: React.InputHTMLAttributes<HTMLInp
   return (
     <input
       className={cn(
-        'min-h-11 w-full border border-line bg-white px-3 text-base text-ink placeholder:text-ink-soft',
+        'min-h-11 w-full rounded-xl border border-gold/25 bg-white px-3 text-base text-ink placeholder:text-ink-soft',
         className,
       )}
       {...props}
@@ -15,7 +15,7 @@ export function Input({ className, ...props }: React.InputHTMLAttributes<HTMLInp
 export function Textarea({ className, ...props }: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
   return (
     <textarea
-      className={cn('min-h-24 w-full border border-line bg-white px-3 py-2 text-base text-ink', className)}
+      className={cn('min-h-24 w-full rounded-xl border border-gold/25 bg-white px-3 py-2 text-base text-ink', className)}
       {...props}
     />
   )
@@ -23,7 +23,7 @@ export function Textarea({ className, ...props }: React.TextareaHTMLAttributes<H
 
 export function Select({ className, children, ...props }: React.SelectHTMLAttributes<HTMLSelectElement>) {
   return (
-    <select className={cn('min-h-11 w-full border border-line bg-white px-3 text-base', className)} {...props}>
+    <select className={cn('min-h-11 w-full rounded-xl border border-gold/25 bg-white px-3 text-base', className)} {...props}>
       {children}
     </select>
   )

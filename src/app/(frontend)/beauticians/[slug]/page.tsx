@@ -35,7 +35,7 @@ export default async function BeauticianDetailPage({ params }: { params: Promise
           <img
             src={mediaUrl(rel(b.profileImage))}
             alt={b.name}
-            className="h-32 w-24 object-cover"
+            className="h-32 w-24 rounded-2xl object-cover ring-1 ring-gold/40"
           />
         ) : null}
         <div>

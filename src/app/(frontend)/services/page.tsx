@@ -51,7 +51,7 @@ export default async function ServicesPage() {
       {categories.docs.length ? (
         <div className="flex flex-wrap gap-2">
           {categories.docs.map((c) => (
-            <Link key={c.id} href={`/services/${c.slug}`} className="min-h-11 border border-line bg-white px-4 py-2 text-sm">
+            <Link key={c.id} href={`/services/${c.slug}`} className="min-h-11 rounded-full border border-gold/30 bg-white px-4 py-2 text-sm hover:bg-blush">
               {c.name}
             </Link>
           ))}
