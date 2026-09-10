@@ -5,7 +5,6 @@ import { ServiceCard } from '@/components/cards/ServiceCard'
 import { EmptyState } from '@/components/ui/States'
 import { pageMeta } from '@/lib/seo'
 import { serviceSellPrice } from '@/lib/pricing/money'
-import { demoImageForService } from '@/content/demo'
 import { mediaUrl, rel } from '@/lib/utils'
 
 export async function generateMetadata({ params }: { params: Promise<{ category: string }> }) {
@@ -51,7 +50,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             categorySlug={cat.slug}
             price={serviceSellPrice(s)}
             durationMinutes={s.durationMinutes}
-            image={mediaUrl(rel(s.featuredImage)) || demoImageForService(s.slug)}
+            image={mediaUrl(rel(s.featuredImage))}
           />
         ))}
       </div>

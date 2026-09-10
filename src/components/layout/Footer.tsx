@@ -37,7 +37,7 @@ export function Footer({
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-4">
         <div>
           {logoUrl ? (
-            <img src={logoUrl} alt={businessName} className="h-12 w-auto max-w-40 object-contain" />
+            <img src={logoUrl} alt={businessName} className="h-18 w-auto max-w-40 object-contain" />
           ) : (
             <p className="font-display text-3xl text-rose">{businessName}</p>
           )}

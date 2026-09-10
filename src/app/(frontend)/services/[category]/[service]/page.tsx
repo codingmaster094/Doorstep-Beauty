@@ -7,7 +7,6 @@ import { serviceSellPrice } from '@/lib/pricing/money'
 import { mediaUrl, rel } from '@/lib/utils'
 import { whatsappLink } from '@/lib/whatsapp'
 import Link from 'next/link'
-import { demoImageForService } from '@/content/demo'
 
 export async function generateMetadata({ params }: { params: Promise<{ category: string; service: string }> }) {
   const { category, service } = await params
@@ -55,9 +54,9 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
       </p>
       <div className="grid gap-6 lg:grid-cols-2">
         <div className="aspect-[4/5] overflow-hidden bg-blush">
-          {mediaUrl(rel(s.featuredImage)) || demoImageForService(s.slug) ? (
+          {mediaUrl(rel(s.featuredImage)) ? (
             <img
-              src={mediaUrl(rel(s.featuredImage)) || demoImageForService(s.slug)}
+              src={mediaUrl(rel(s.featuredImage))}
               alt={s.name}
               className="h-full w-full object-cover"
             />

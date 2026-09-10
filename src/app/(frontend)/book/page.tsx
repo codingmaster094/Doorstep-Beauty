@@ -1,5 +1,6 @@
 import { getPayloadClient } from '@/lib/payload'
 import { BookingWizard } from '@/components/booking/BookingWizard'
+import { EmptyState } from '@/components/ui/States'
 import { pageMeta } from '@/lib/seo'
 import { rel } from '@/lib/utils'
 
@@ -33,6 +34,10 @@ export default async function BookPage({ searchParams }: { searchParams: Promise
   }
 
   const initial = services.docs.find((s) => s.slug === service)
+
+  if (!services.docs.length) {
+    return <EmptyState title="No services to book yet" body="Add services in Admin before customers can book." />
+  }
 
   return (
     <BookingWizard

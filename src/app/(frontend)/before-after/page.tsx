@@ -1,7 +1,6 @@
 import { getPayloadClient } from '@/lib/payload'
 import { BeforeAfterSlider } from '@/components/ui/BeforeAfterSlider'
-import { DemoNotice } from '@/components/ui/DemoNotice'
-import { demoBeforeAfter } from '@/content/demo'
+import { EmptyState } from '@/components/ui/States'
 import { pageMeta } from '@/lib/seo'
 import { mediaUrl, rel } from '@/lib/utils'
 
@@ -21,28 +20,29 @@ export default async function BeforeAfterPage() {
     depth: 2,
     overrideAccess: true,
   })
-  const list = found.docs.length
-    ? found.docs.map((item) => ({
-        id: String(item.id),
-        title: item.title,
-        beforeSrc: mediaUrl(rel(item.beforeImage)) || '',
-        afterSrc: mediaUrl(rel(item.afterImage)) || '',
-      }))
-    : demoBeforeAfter
+  const list = found.docs.map((item) => ({
+    id: String(item.id),
+    title: item.title,
+    beforeSrc: mediaUrl(rel(item.beforeImage)) || '',
+    afterSrc: mediaUrl(rel(item.afterImage)) || '',
+  }))
   return (
     <div className="space-y-6">
-      <DemoNotice />
       <h1 className="font-display text-5xl">Before & after</h1>
-      <div className="grid gap-4 sm:grid-cols-2">
-        {list.map((item) => (
-          <BeforeAfterSlider
-            key={item.title}
-            title={item.title}
-            beforeSrc={item.beforeSrc}
-            afterSrc={item.afterSrc}
-          />
-        ))}
-      </div>
+      {list.length ? (
+        <div className="grid gap-4 sm:grid-cols-2">
+          {list.map((item) => (
+            <BeforeAfterSlider
+              key={item.id}
+              title={item.title}
+              beforeSrc={item.beforeSrc}
+              afterSrc={item.afterSrc}
+            />
+          ))}
+        </div>
+      ) : (
+        <EmptyState title="No results yet" body="Add before & after photos in Admin and they will appear here." />
+      )}
     </div>
   )
 }

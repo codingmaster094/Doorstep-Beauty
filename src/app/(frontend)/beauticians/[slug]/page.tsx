@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/Button'
 import { Rating } from '@/components/ui/Card'
 import { pageMeta } from '@/lib/seo'
 import { mediaUrl, rel } from '@/lib/utils'
-import { demoImageForBeautician } from '@/content/demo'
 import { whatsappLink } from '@/lib/whatsapp'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -32,9 +31,9 @@ export default async function BeauticianDetailPage({ params }: { params: Promise
   return (
     <article className="space-y-6">
       <div className="flex gap-4">
-        {mediaUrl(rel(b.profileImage)) || demoImageForBeautician(b.slug) ? (
+        {mediaUrl(rel(b.profileImage)) ? (
           <img
-            src={mediaUrl(rel(b.profileImage)) || demoImageForBeautician(b.slug)}
+            src={mediaUrl(rel(b.profileImage))}
             alt={b.name}
             className="h-32 w-24 object-cover"
           />

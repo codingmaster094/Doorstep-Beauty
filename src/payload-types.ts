@@ -1297,14 +1297,43 @@ export interface SiteSetting {
  */
 export interface Homepage {
   id: string;
+  heroBadge?: string | null;
   heroHeadline?: string | null;
   heroText?: string | null;
   /**
    * Large photo on the home page. Stored in Media.
    */
   heroImage?: (string | null) | Media;
+  primaryCtaLabel?: string | null;
+  primaryCtaHref?: string | null;
+  secondaryCtaLabel?: string | null;
+  secondaryCtaHref?: string | null;
+  servicesTitle?: string | null;
+  howItWorksTitle?: string | null;
+  howItWorks?:
+    | {
+        title: string;
+        id?: string | null;
+      }[]
+    | null;
+  whyTitle?: string | null;
+  whyItems?:
+    | {
+        title: string;
+        body?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  beforeAfterTitle?: string | null;
+  beauticiansTitle?: string | null;
+  reelsTitle?: string | null;
+  reviewsTitle?: string | null;
+  offersTitle?: string | null;
+  faqTitle?: string | null;
   finalCtaHeadline?: string | null;
   finalCtaText?: string | null;
+  finalCtaLabel?: string | null;
+  finalCtaHref?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1370,11 +1399,40 @@ export interface SiteSettingsSelect<T extends boolean = true> {
  * via the `definition` "homepage_select".
  */
 export interface HomepageSelect<T extends boolean = true> {
+  heroBadge?: T;
   heroHeadline?: T;
   heroText?: T;
   heroImage?: T;
+  primaryCtaLabel?: T;
+  primaryCtaHref?: T;
+  secondaryCtaLabel?: T;
+  secondaryCtaHref?: T;
+  servicesTitle?: T;
+  howItWorksTitle?: T;
+  howItWorks?:
+    | T
+    | {
+        title?: T;
+        id?: T;
+      };
+  whyTitle?: T;
+  whyItems?:
+    | T
+    | {
+        title?: T;
+        body?: T;
+        id?: T;
+      };
+  beforeAfterTitle?: T;
+  beauticiansTitle?: T;
+  reelsTitle?: T;
+  reviewsTitle?: T;
+  offersTitle?: T;
+  faqTitle?: T;
   finalCtaHeadline?: T;
   finalCtaText?: T;
+  finalCtaLabel?: T;
+  finalCtaHref?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

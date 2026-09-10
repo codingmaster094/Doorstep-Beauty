@@ -1,7 +1,6 @@
 import { getPayloadClient } from '@/lib/payload'
 import { BeauticianCard } from '@/components/cards/BeauticianCard'
-import { DemoNotice } from '@/components/ui/DemoNotice'
-import { demoBeauticians, demoImageForBeautician } from '@/content/demo'
+import { EmptyState } from '@/components/ui/States'
 import { pageMeta } from '@/lib/seo'
 import { mediaUrl, rel } from '@/lib/utils'
 
@@ -21,36 +20,37 @@ export default async function BeauticiansPage() {
     depth: 2,
     overrideAccess: true,
   })
-  const list = found.docs.length
-    ? found.docs.map((b) => ({
-        id: String(b.id),
-        name: b.name,
-        slug: b.slug,
-        experienceYears: b.experienceYears,
-        rating: b.rating ?? 0,
-        specialization: rel(b.specializations?.[0])?.name,
-        area: rel(b.serviceAreas?.[0])?.name,
-        image: mediaUrl(rel(b.profileImage)) || demoImageForBeautician(b.slug),
-      }))
-    : demoBeauticians
+  const list = found.docs.map((b) => ({
+    id: String(b.id),
+    name: b.name,
+    slug: b.slug,
+    experienceYears: b.experienceYears,
+    rating: b.rating ?? 0,
+    specialization: rel(b.specializations?.[0])?.name,
+    area: rel(b.serviceAreas?.[0])?.name,
+    image: mediaUrl(rel(b.profileImage)),
+  }))
   return (
     <div className="space-y-6">
-      <DemoNotice />
       <h1 className="font-display text-5xl">Beauticians</h1>
-      <div className="grid gap-4 sm:grid-cols-2">
-        {list.map((b) => (
-          <BeauticianCard
-            key={'id' in b ? b.id : b.slug}
-            name={b.name}
-            slug={b.slug}
-            experienceYears={b.experienceYears}
-            rating={b.rating}
-            specialization={b.specialization}
-            area={b.area}
-            image={b.image}
-          />
-        ))}
-      </div>
+      {list.length ? (
+        <div className="grid gap-4 sm:grid-cols-2">
+          {list.map((b) => (
+            <BeauticianCard
+              key={b.id}
+              name={b.name}
+              slug={b.slug}
+              experienceYears={b.experienceYears}
+              rating={b.rating}
+              specialization={b.specialization}
+              area={b.area}
+              image={b.image}
+            />
+          ))}
+        </div>
+      ) : (
+        <EmptyState title="No beauticians yet" body="Add beauticians in Admin and they will appear here." />
+      )}
     </div>
   )
 }
