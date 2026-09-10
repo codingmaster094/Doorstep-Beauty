@@ -92,9 +92,7 @@ export default buildConfig({
       },
       token: blobToken,
       addRandomSuffix: true,
-      clientUploads: {
-        access: ({ req }) => Boolean(req.user),
-      },
+      clientUploads: false,
     }),
   ],
 })

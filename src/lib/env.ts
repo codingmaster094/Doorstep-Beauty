@@ -11,6 +11,5 @@ export function isValidVercelBlobToken(token: string) {
 }
 
 export function publicServerURL() {
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`
   return cleanEnv(process.env.PAYLOAD_PUBLIC_SERVER_URL || process.env.NEXT_PUBLIC_SERVER_URL)
 }
