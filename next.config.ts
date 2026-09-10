@@ -2,16 +2,13 @@ import { withPayload } from '@payloadcms/next/withPayload'
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  allowedDevOrigins: ['192.168.1.24', 'localhost', '127.0.0.1'],
+  allowedDevOrigins: ['192.168.1.24', 'localhost', 'doorstep-beauty-peach.vercel.app'],
   experimental: {
     serverActions: {
       allowedOrigins: [
         'localhost:3000',
         'localhost:3001',
-        '127.0.0.1:3000',
-        '127.0.0.1:3001',
-        '192.168.1.24:3000',
-        '192.168.1.24:3001',
+        'doorstep-beauty-peach.vercel.app',
       ],
       bodySizeLimit: '80mb',
     },
