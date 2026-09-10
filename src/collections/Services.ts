@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { isContent } from '@/access'
 import { autoSlugFrom, revalidateAfterChange } from '@/hooks/cms'
+import { mediaUpload } from '@/fields/mediaUpload'
 
 export const Services: CollectionConfig = {
   slug: 'services',
@@ -33,19 +34,8 @@ export const Services: CollectionConfig = {
     },
     { name: 'shortDescription', type: 'textarea', required: true },
     { name: 'fullDescription', type: 'textarea' },
-    {
-      name: 'featuredImage',
-      type: 'upload',
-      relationTo: 'media',
-      admin: { description: 'Main photo on the website.' },
-    },
-    {
-      name: 'gallery',
-      type: 'upload',
-      relationTo: 'media',
-      hasMany: true,
-      admin: { description: 'Extra photos on the service page.' },
-    },
+    mediaUpload('featuredImage', { label: 'Featured image', description: 'Main photo on the website. Stored in Media.' }),
+    mediaUpload('gallery', { label: 'Gallery', hasMany: true, description: 'Extra photos. Stored in Media.' }),
     { name: 'basePrice', type: 'number', required: true, min: 0 },
     { name: 'salePrice', type: 'number', min: 0 },
     {

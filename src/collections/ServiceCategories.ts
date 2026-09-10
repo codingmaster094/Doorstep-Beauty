@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { isContent } from '@/access'
 import { autoSlugFrom, revalidateAfterChange } from '@/hooks/cms'
+import { mediaUpload } from '@/fields/mediaUpload'
 
 export const ServiceCategories: CollectionConfig = {
   slug: 'service-categories',
@@ -19,7 +20,7 @@ export const ServiceCategories: CollectionConfig = {
     { name: 'name', type: 'text', required: true },
     { name: 'slug', type: 'text', required: true, unique: true, index: true },
     { name: 'shortDescription', type: 'textarea' },
-    { name: 'image', type: 'upload', relationTo: 'media' },
+    mediaUpload('image', { label: 'Category image' }),
     { name: 'active', type: 'checkbox', defaultValue: true },
     { name: 'featured', type: 'checkbox', defaultValue: true },
     { name: 'sortOrder', type: 'number', defaultValue: 0 },

@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { isContent } from '@/access'
 import { revalidateAfterChange } from '@/hooks/cms'
+import { mediaUpload } from '@/fields/mediaUpload'
 
 export const BeforeAfter: CollectionConfig = {
   slug: 'before-after',
@@ -18,8 +19,8 @@ export const BeforeAfter: CollectionConfig = {
     { name: 'title', type: 'text', required: true },
     { name: 'service', type: 'relationship', relationTo: 'services' },
     { name: 'beautician', type: 'relationship', relationTo: 'beauticians' },
-    { name: 'beforeImage', type: 'upload', relationTo: 'media', required: true },
-    { name: 'afterImage', type: 'upload', relationTo: 'media', required: true },
+    mediaUpload('beforeImage', { label: 'Before photo', required: true }),
+    mediaUpload('afterImage', { label: 'After photo', required: true }),
     { name: 'description', type: 'textarea' },
     { name: 'published', type: 'checkbox', defaultValue: true, label: 'Show on website' },
     { name: 'featured', type: 'checkbox', defaultValue: true, label: 'Show on homepage' },

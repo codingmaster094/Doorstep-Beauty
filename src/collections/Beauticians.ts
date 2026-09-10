@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { isContent, isOps } from '@/access'
 import { autoSlugFrom, revalidateAfterChange } from '@/hooks/cms'
+import { mediaUpload } from '@/fields/mediaUpload'
 
 export const Beauticians: CollectionConfig = {
   slug: 'beauticians',
@@ -24,7 +25,7 @@ export const Beauticians: CollectionConfig = {
     { name: 'name', type: 'text', required: true },
     { name: 'slug', type: 'text', required: true, unique: true, index: true },
     { name: 'user', type: 'relationship', relationTo: 'users' },
-    { name: 'profileImage', type: 'upload', relationTo: 'media', admin: { description: 'Photo on the website.' } },
+    mediaUpload('profileImage', { label: 'Profile photo', description: 'Photo on the website. Stored in Media.' }),
     { name: 'bio', type: 'textarea' },
     { name: 'experienceYears', type: 'number', required: true, min: 0 },
     {
@@ -65,7 +66,7 @@ export const Beauticians: CollectionConfig = {
     { name: 'available', type: 'checkbox', defaultValue: true },
     { name: 'rating', type: 'number', defaultValue: 0, min: 0, max: 5 },
     { name: 'totalReviews', type: 'number', defaultValue: 0, min: 0 },
-    { name: 'portfolio', type: 'upload', relationTo: 'media', hasMany: true, admin: { description: 'Work photos on the profile page.' } },
+    mediaUpload('portfolio', { label: 'Work photos', hasMany: true, description: 'Work photos on the profile page. Stored in Media.' }),
     { name: 'phone', type: 'text' },
     { name: 'whatsapp', type: 'text' },
     { name: 'active', type: 'checkbox', defaultValue: true, label: 'Show on website' },

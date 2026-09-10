@@ -1,6 +1,7 @@
 import type { CollectionConfig, Where } from 'payload'
 import { isContent } from '@/access'
 import { revalidateAfterChange } from '@/hooks/cms'
+import { mediaUpload } from '@/fields/mediaUpload'
 
 export const Reviews: CollectionConfig = {
   slug: 'reviews',
@@ -26,7 +27,7 @@ export const Reviews: CollectionConfig = {
   fields: [
     { name: 'customer', type: 'relationship', relationTo: 'users' },
     { name: 'customerName', type: 'text', required: true },
-    { name: 'customerPhoto', type: 'upload', relationTo: 'media' },
+    mediaUpload('customerPhoto', { label: 'Customer photo' }),
     { name: 'service', type: 'relationship', relationTo: 'services' },
     { name: 'beautician', type: 'relationship', relationTo: 'beauticians' },
     { name: 'appointment', type: 'relationship', relationTo: 'appointments' },

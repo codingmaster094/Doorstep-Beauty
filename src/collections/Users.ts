@@ -1,5 +1,6 @@
 import type { CollectionConfig, Where } from 'payload'
 import { isOps, isSuperAdmin } from '@/access'
+import { mediaUpload } from '@/fields/mediaUpload'
 
 const adminRoles = ['super-admin', 'manager', 'content-manager']
 
@@ -78,14 +79,10 @@ export const Users: CollectionConfig = {
         condition: (_data, _sibling, { user }) => Boolean(user),
       },
     },
-    {
-      name: 'photo',
-      type: 'upload',
-      relationTo: 'media',
-      admin: {
-        condition: (_data, _sibling, { user }) => Boolean(user),
-      },
-    },
+    mediaUpload('photo', {
+      label: 'Photo',
+      admin: { condition: (_data: unknown, _sibling: unknown, { user }: { user?: unknown }) => Boolean(user) },
+    }),
     {
       name: 'accountStatus',
       type: 'select',

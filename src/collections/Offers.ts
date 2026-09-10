@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { isContent } from '@/access'
 import { autoSlugFrom, defaultOfferDates, revalidateAfterChange } from '@/hooks/cms'
+import { mediaUpload } from '@/fields/mediaUpload'
 
 export const Offers: CollectionConfig = {
   slug: 'offers',
@@ -19,7 +20,7 @@ export const Offers: CollectionConfig = {
     { name: 'title', type: 'text', required: true },
     { name: 'slug', type: 'text', required: true, unique: true },
     { name: 'description', type: 'textarea' },
-    { name: 'banner', type: 'upload', relationTo: 'media' },
+    mediaUpload('banner', { label: 'Banner' }),
     { name: 'discountLabel', type: 'text' },
     { name: 'coupon', type: 'relationship', relationTo: 'coupons' },
     { name: 'startDate', type: 'date' },

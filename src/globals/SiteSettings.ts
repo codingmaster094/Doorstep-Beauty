@@ -1,6 +1,7 @@
 import type { GlobalConfig } from 'payload'
 import { isContent } from '@/access'
 import { revalidateGlobalAfterChange } from '@/hooks/cms'
+import { mediaUpload } from '@/fields/mediaUpload'
 
 export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
@@ -11,8 +12,8 @@ export const SiteSettings: GlobalConfig = {
   fields: [
     { name: 'businessName', type: 'text', required: true, defaultValue: 'Bloom At Home' },
     { name: 'tagline', type: 'text', defaultValue: 'Professional Beauty Services, At Your Doorstep.' },
-    { name: 'logo', type: 'upload', relationTo: 'media' },
-    { name: 'favicon', type: 'upload', relationTo: 'media' },
+    mediaUpload('logo', { label: 'Logo' }),
+    mediaUpload('favicon', { label: 'Favicon' }),
     { name: 'phone', type: 'text', required: true, defaultValue: '+919876543210' },
     { name: 'whatsapp', type: 'text', required: true, defaultValue: '919876543210' },
     { name: 'email', type: 'email', required: true, defaultValue: 'hello@bloomathome.example' },

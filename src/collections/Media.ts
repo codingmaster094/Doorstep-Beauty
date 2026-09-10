@@ -9,8 +9,8 @@ const dirname = path.dirname(fileURLToPath(import.meta.url))
 export const Media: CollectionConfig = {
   slug: 'media',
   labels: {
-    singular: 'Photo / Video',
-    plural: 'Photos & Videos',
+    singular: 'Media file',
+    plural: 'Media',
   },
   access: {
     create: ({ req: { user } }) => Boolean(user),
@@ -19,15 +19,31 @@ export const Media: CollectionConfig = {
     delete: isContent,
   },
   admin: {
-    group: 'Content',
-    description: 'Upload photos and videos here, then attach them on Services, Homepage, Beauticians, Reels, or Before & After.',
+    group: 'Media',
+    useAsTitle: 'alt',
+    defaultColumns: ['filename', 'alt', 'folder', 'mimeType', 'updatedAt'],
+    description: 'All website photos, videos and icons are stored here. Upload once, then select the file on Homepage, Services, Beauticians, Reels, Offers and other pages.',
   },
   upload: {
     staticDir: path.resolve(dirname, '../../media'),
-    mimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/avif', 'video/mp4', 'video/webm', 'video/quicktime'],
+    mimeTypes: [
+      'image/jpeg',
+      'image/png',
+      'image/webp',
+      'image/gif',
+      'image/avif',
+      'image/svg+xml',
+      'image/x-icon',
+      'image/vnd.microsoft.icon',
+      'video/mp4',
+      'video/webm',
+      'video/quicktime',
+    ],
     displayPreview: true,
     crop: false,
     focalPoint: false,
+    filesRequiredOnCreate: true,
+    bulkUpload: true,
   },
   hooks: {
     beforeOperation: [
@@ -50,8 +66,28 @@ export const Media: CollectionConfig = {
     {
       name: 'alt',
       type: 'text',
+      required: true,
       admin: {
-        description: 'Short text for the photo. If empty, the file name is used.',
+        description: 'Short text that describes this file on the website.',
+      },
+    },
+    {
+      name: 'folder',
+      type: 'select',
+      defaultValue: 'general',
+      options: [
+        { label: 'General', value: 'general' },
+        { label: 'Logo & icons', value: 'brand' },
+        { label: 'Homepage', value: 'homepage' },
+        { label: 'Services', value: 'services' },
+        { label: 'Beauticians', value: 'beauticians' },
+        { label: 'Reels', value: 'reels' },
+        { label: 'Before & after', value: 'before-after' },
+        { label: 'Offers', value: 'offers' },
+        { label: 'Reviews', value: 'reviews' },
+      ],
+      admin: {
+        description: 'Optional folder so files are easier to find.',
       },
     },
   ],
