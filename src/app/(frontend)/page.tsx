@@ -1,5 +1,5 @@
 import { getPayloadClient } from '@/lib/payload'
-import { ServiceCard } from '@/components/cards/ServiceCard'
+import { ServiceSwiper } from '@/components/catalog/ServiceSwiper'
 import { BeauticianCard } from '@/components/cards/BeauticianCard'
 import { ReviewCard } from '@/components/cards/ReviewCard'
 import { Accordion } from '@/components/ui/Accordion'
@@ -194,19 +194,7 @@ export default async function HomePage() {
       {featuredServices.length ? (
         <section>
           {home.servicesTitle ? <h2 className="font-display text-4xl">{home.servicesTitle}</h2> : null}
-          <div className="mt-5 flex snap-x gap-4 overflow-x-auto pb-2">
-            {featuredServices.map((s) => (
-              <ServiceCard
-                key={s.id}
-                name={s.name}
-                slug={s.slug}
-                categorySlug={s.categorySlug}
-                price={s.price}
-                durationMinutes={s.durationMinutes}
-                image={s.image}
-              />
-            ))}
-          </div>
+          <ServiceSwiper services={featuredServices} />
         </section>
       ) : null}
 

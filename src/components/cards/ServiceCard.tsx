@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { formatInr } from '@/lib/pricing/money'
 import { Button } from '@/components/ui/Button'
-import { mediaUrl } from '@/lib/utils'
+import { cn, mediaUrl } from '@/lib/utils'
 
 export function ServiceCard({
   name,
@@ -10,6 +10,7 @@ export function ServiceCard({
   price,
   durationMinutes,
   image,
+  className,
 }: {
   name: string
   slug: string
@@ -17,10 +18,11 @@ export function ServiceCard({
   price: number
   durationMinutes: number
   image?: { url?: string | null } | string | null
+  className?: string
 }) {
   const href = `/services/${categorySlug}/${slug}`
   return (
-    <article className="flex min-w-[220px] snap-start flex-col border border-line bg-white">
+    <article className={cn('flex min-w-[220px] snap-start flex-col border border-line bg-white', className)}>
       <Link href={href} className="block aspect-[4/5] overflow-hidden bg-blush">
         {mediaUrl(image) ? (
           <img src={mediaUrl(image)} alt={name} className="h-full w-full object-cover" loading="lazy" />
